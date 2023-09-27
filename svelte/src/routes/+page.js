@@ -1,0 +1,11 @@
+// since there's no dynamic data here, we can prerender
+// it so that it gets served as a static asset in production
+export const prerender = true;
+
+export async function load({ fetch, params }) {
+    const res = await fetch(`http://localhost:8080/api/book/${params.book}`);
+    const iterate = await res.text();
+
+
+    return { iterate };
+}
