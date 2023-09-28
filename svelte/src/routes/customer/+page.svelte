@@ -7,7 +7,6 @@
 
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="http://localhost:5173/create/customer">
-                <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
             </a>
             <div class="p-5">
                 <a href="http://localhost:5173/create/customer">
@@ -24,9 +23,7 @@
         </div>
 
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="http://localhost:5173/customer/list">
-                <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-            </a>
+            <a href="http://localhost:5173/customer/list"></a>
             <div class="p-5">
                 <a href="http://localhost:5173/customer/list">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">List of All Customers</h5>
@@ -45,14 +42,6 @@
 
 
 <style>
-.centered{
-    margin:auto;
-    width: 12%;
-}
 
-button{
-    border-radius: 15px;
-    width: fit-content;
-}
 </style>
 

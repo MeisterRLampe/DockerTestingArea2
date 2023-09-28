@@ -3,10 +3,11 @@
 
 :root {
 
-	--background: #ffffff;
+	--background: #b9dff1;
 	--background-dark: #111111;
 	--color-text: #333333;
 	--text-dark: #ffffff;
+
 }
 
 /* Define styles for light mode */
