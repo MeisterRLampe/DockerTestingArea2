@@ -115,9 +115,14 @@
 
 
                     {#if isOpen}
-                        {#each data.categories as category }
-                            <div  class="dropdown-item" on:click={() => selectCategory(category)} role="menuitem" tableindex="0" on:keydown{}>
-                                {category.categoryname}
+                        {#each data.categories as category (category.id) }
+                          <div
+                            class="dropdown-item"
+                            on:click={() => selectCategory(category)}
+                            role="menuitem"
+                            tabindex="0"
+                            on:keydown={(e) => handleMenuKeyDown(e, category)}
+                            > {category.categoryname}
                             </div>
                         {/each}
                     {/if}
