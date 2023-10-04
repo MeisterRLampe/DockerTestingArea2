@@ -1,5 +1,5 @@
 package com.meisterlampe.dockertestingarea2.controller;
-import com.meisterlampe.dockertestingarea2.entites.User;
+import com.meisterlampe.dockertestingarea2.entities.User;
 import com.meisterlampe.dockertestingarea2.repository.UserRepository;
 import com.meisterlampe.dockertestingarea2.services.UserService;
 import jakarta.annotation.Resource;

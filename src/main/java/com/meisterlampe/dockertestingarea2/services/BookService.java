@@ -1,6 +1,6 @@
 package com.meisterlampe.dockertestingarea2.services;
 
-import com.meisterlampe.dockertestingarea2.entites.Books;
+import com.meisterlampe.dockertestingarea2.entities.Books;
 
 import java.util.List;
 import java.util.Optional;

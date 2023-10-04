@@ -1,6 +1,8 @@
 package com.meisterlampe.dockertestingarea2.serviceImpl;
-import com.meisterlampe.dockertestingarea2.entites.Books;
+import com.meisterlampe.dockertestingarea2.entities.Books;
+import com.meisterlampe.dockertestingarea2.entities.Category;
 import com.meisterlampe.dockertestingarea2.repository.BookRepository;
+import com.meisterlampe.dockertestingarea2.repository.CategoryRepository;
 import com.meisterlampe.dockertestingarea2.services.BookService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,15 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
     @Resource
     BookRepository bookRepository;
+    @Resource
+    CategoryRepository categoryRepository;
 
     List<Books> bookList;
 
-    public BookServiceImpl(BookRepository bookRepository, List<Books> bookList) {
+    public BookServiceImpl(BookRepository bookRepository, List<Books> bookList,  CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
         this.bookList = bookList;
+        this.categoryRepository = categoryRepository;
 
     }
 
@@ -71,6 +76,8 @@ public class BookServiceImpl implements BookService {
     public void createBook(Books bookDTO) {
 
     }
+
+
 
 }
 

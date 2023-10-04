@@ -1,7 +1,7 @@
 package com.meisterlampe.dockertestingarea2.services;
 
 
-import com.meisterlampe.dockertestingarea2.entites.User;
+import com.meisterlampe.dockertestingarea2.entities.User;
 
 import java.util.Optional;
 

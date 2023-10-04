@@ -1,6 +1,6 @@
 package com.meisterlampe.dockertestingarea2.repository;
 
-import com.meisterlampe.dockertestingarea2.entites.User;
+import com.meisterlampe.dockertestingarea2.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
