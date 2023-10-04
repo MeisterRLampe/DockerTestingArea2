@@ -1,18 +1,18 @@
 <script>
 
-    let bookTitle = '';
+    let booktitle = '';
     let pages = '';
     let price = "";
-    let bookVersion = "";
     let releaseDate = "";
     let bookEntry = "";
+    let category ='';
 
     const handler = async () => {
         const formData = {
-            bookTitle,
+            booktitle,
             pages,
             price,
-            bookVersion,
+            category,
             releaseDate,
             bookEntry
         };
@@ -42,7 +42,7 @@
         <div class="flex">
             <div class="container text-black -mb-20  flex-col flex-1 w-64">
                 <label>Title:</label>
-                <div><input bind:value={bookTitle} type="text" class="input input-bordered w-full max-w-xs bg-blue-200">
+                <div><input bind:value={booktitle} type="text" class="input input-bordered w-full max-w-xs bg-blue-200">
                 </div>
                 <label>Pages:</label>
                 <div><input bind:value={pages} name="pages" type="text"
@@ -50,14 +50,13 @@
                 <label>Price:</label>
                 <div><input bind:value={price} name="price" type="text"
                             class="input input-bordered w-full max-w-xs bg-blue-200"/></div>
-                <label>Version:</label>
-                <div><input bind:value={bookVersion} name="bookVersion" type="text"
-                            class="input input-bordered w-full max-w-xs bg-blue-200"/>
-                </div>
                 <label>Release:</label>
                 <div><input bind:value={releaseDate} name="releaseDate" type="date"
-                            class="input input-bordered w-full max-w-xs bg-blue-200"/>
-                </div>
+                            class="input input-bordered w-full max-w-xs bg-blue-200"/></div>
+                <label>Category:</label>
+                <div><input bind:value={category} name="price" type="text"
+                            class="input input-bordered w-full max-w-xs bg-blue-200"/></div>
+
             </div>
             <div class="flex 1 w-64 mr-40 mt-20">
                 <div><textarea bind:value={bookEntry} class="justify textarea textarea-bordered bg-blue-200" name="bookEntry"

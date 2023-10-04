@@ -1,19 +1,19 @@
 package com.meisterlampe.dockertestingarea2.repository;
 
-import com.meisterlampe.dockertestingarea2.entites.BookOrderEntity;
+import com.meisterlampe.dockertestingarea2.entites.Ausleihe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderRepository extends JpaRepository <BookOrderEntity,Integer> {
+public interface OrderRepository extends JpaRepository <Ausleihe,Integer> {
 
     @Override
-    List<BookOrderEntity> findAllById(Iterable<Integer> integers);
+    List<Ausleihe> findAllById(Iterable<Integer> integers);
 
     @Override
-    List<BookOrderEntity> findAll();
+    List<Ausleihe> findAll();
 
     @Override
-    Optional<BookOrderEntity> findById(Integer integer);
+    Optional<Ausleihe> findById(Integer integer);
 }

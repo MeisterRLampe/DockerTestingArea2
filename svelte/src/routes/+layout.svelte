@@ -16,11 +16,13 @@
 			document.documentElement.classList.add('dark-mode');
 		}
 	});
+
 </script>
 
 <div class="app">
 
 	<Header/>
+
 	<main class:dark-mode={darkMode}>
 		<slot/>
 	</main>

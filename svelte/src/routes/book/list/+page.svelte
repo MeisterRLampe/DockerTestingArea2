@@ -1,28 +1,28 @@
 <script>
+
     export let data;
 
 
     let idbooks = '';
-    let bookTitle = '';
+    let booktitle ='';
     let pages = '';
     let price = "";
 
 
-
-    const handleDeleteById = async ()=>{
+    const handleDeleteById = async () => {
        const idData = {
 
           idbooks,
-          bookTitle,
+          booktitle,
           pages,
           price
        };
-       const response = await fetch('http://localhost:8080/api/book/delete/',{
-          method:"DELETE",
+       const response = await fetch(`http://localhost:8080/api/book/delete/${idData.idbooks}`, {
+          method: "DELETE",
           headers: {
-             "Content-Type" : "application/json"
+             "Content-Type": "application/json"
           },
-          body: JSON.stringify(idData)
+
        });
        if (response.ok) {
           // Erfolgreich erstellt
@@ -33,17 +33,10 @@
        }
     }
 
+
 </script>
 
 
-<!--
-<div class="grid grid-cols-3 gap-4">
-   {#each data.item as book}
-
-         <a href="book/{book.idbooks}">{book.title}</a>
-
-   {/each}
-</div>-->
 <main>
    <div class="relative overflow-x-auto max-h-80 shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -70,7 +63,7 @@
                   {book.idbooks}
                </td>
                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {book.bookTitle}
+                  {book.booktitle}
                </td>
                <td class="px-6 py-4">
                   {book.pages}
@@ -86,7 +79,7 @@
 
       <div class="centered">
          <form on:submit={handleDeleteById}>
-            <input placeholder="Delete By Id" class="rounded mt-4" type="text" width="250px" height="10px">
+            <input  placeholder="Delete By Id" class="rounded mt-4" type="text" width="250px" height="10px">
             <div class="mt-4">
                <button type="submit" class="btn btn-success sm:badge-ghost">Delete</button>
             </div>

@@ -13,17 +13,30 @@
                 <th scope="col" class="px-6 py-3">
                     Adresse:
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Zip:
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email:
+                </th>
             </tr>
             </thead>
             <tbody>
-            {#each data.item as customer}
+            {#each data.item as user}
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="px-6 py-4">
-                        {customer.name}
+                        {user.name}
                     </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {customer.address}
+                        {user.address}
                     </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {user.zipcode}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {user.email}
+                    </td>
+
 
                 </tr>
             {/each}

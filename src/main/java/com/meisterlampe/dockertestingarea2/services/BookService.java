@@ -1,7 +1,6 @@
 package com.meisterlampe.dockertestingarea2.services;
 
-import com.meisterlampe.dockertestingarea2.dtos.BookDTO;
-import com.meisterlampe.dockertestingarea2.entites.BookEntity;
+import com.meisterlampe.dockertestingarea2.entites.Books;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +8,12 @@ import java.util.Optional;
 
 public interface BookService {
 
-    Iterable<BookEntity> getAllBooks();
+    Iterable<Books> getAllBooks();
 
-    List<BookEntity> getBooksById(int idbooks);
+    List<Books> getBooksById(int idbooks);
 
-    Optional<BookEntity> updateBookById(int idbooks, BookEntity book);
+    Optional<Books> updateBookById(int idbooks, Books book);
 
-    void createBook(BookDTO bookDTO);
+    void createBook(Books bookDTO);
+
 }

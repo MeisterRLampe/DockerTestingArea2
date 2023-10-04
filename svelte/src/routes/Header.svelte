@@ -19,27 +19,41 @@
 	});
 </script>
 
-<header>
-	<nav class="w-full bg-blue-700 border-r-15">
+<header class="text-center">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Navbar</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/customer' ? 'page' : undefined}>
-				<a href="/customer">Customer</a>
-			</li>
-			<li aria-current={$page.url.pathname.startsWith('/book') ? 'page' : undefined}>
-				<a href="/book">Books</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/register' ? 'page' : undefined}>
-				<a href="/register">Register</a>
-			</li>
-			<li>
-				<input type="checkbox" id="darkmode-toggle" on:change={toggleDarkMode} bind:checked={darkMode} />
-				<label for="darkmode-toggle">Dark Mode</label>
-			</li>
-		</ul>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Dropdown
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
 	</nav>
 </header>
 
@@ -51,22 +65,20 @@
 		padding: 1rem; /* Add some padding for spacing */
 		background-color: var(--background); /* Set the background color */
 		color: var(--color-text); /* Set the text color */
+		border-radius: 15px;
 	}
-
-	nav {
-		display: flex;
-		align-items: center;
-	}
-
 	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
+		margin:0;
+		padding:0;
+		list-style-type:none;
+		text-align:center;
 	}
+
+
 
 	li {
 		margin-right: 1rem; /* Add spacing between navigation items */
+		display:inline-block;
 	}
 
 	a {
@@ -74,9 +86,4 @@
 		color: inherit;
 	}
 
-	/* Add your dark mode styles here */
-	.dark-mode {
-		background-color: var(--background-dark);
-		color: var(--text-dark);
-	}
 </style>
