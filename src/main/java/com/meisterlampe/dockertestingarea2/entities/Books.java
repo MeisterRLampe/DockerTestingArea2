@@ -31,6 +31,9 @@ public class Books {
     private String bookentry;
 
 
+
+
+
     @Column(name = "idcategory", insertable = false, updatable = false)
     private Integer idcategory;
 
@@ -38,10 +41,9 @@ public class Books {
     @JoinColumn(name="idcategory")
     private Category category;
 
+
     @OneToMany(mappedBy = "ausgelieheneBucher")
     private List<Ausleihe> ausleihe;
-
-
 
 
     @Override

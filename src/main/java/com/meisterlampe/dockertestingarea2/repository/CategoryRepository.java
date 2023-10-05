@@ -6,13 +6,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
+    @Transactional
+    @Modifying
+    @Query("update Category c set c.categoryname = ?1 where c.idcategory = ?2")
+    int updateCategorynameByIdcategory(String categoryname, int idcategory);
     @Override
     void flush();
 

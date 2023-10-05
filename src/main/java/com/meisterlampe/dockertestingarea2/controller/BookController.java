@@ -1,20 +1,14 @@
 package com.meisterlampe.dockertestingarea2.controller;
 import com.meisterlampe.dockertestingarea2.entities.Books;
-import com.meisterlampe.dockertestingarea2.entities.Category;
 import com.meisterlampe.dockertestingarea2.repository.BookRepository;
-import com.meisterlampe.dockertestingarea2.repository.CategoryRepository;
 import com.meisterlampe.dockertestingarea2.services.BookService;
-import com.meisterlampe.dockertestingarea2.services.CategoryService;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -27,19 +21,10 @@ public class BookController {
     private final BookService bookService;
     @Resource
     private final BookRepository bookRepository;
-    @Resource
-    private final CategoryRepository categoryRepository;
-    private final CategoryService categoryService;
 
 
-    @RequestMapping(value = "/delete/{idbooks}", method = RequestMethod.OPTIONS)
-    public ResponseEntity<?> handleOptions() {
-        return ResponseEntity.ok()
-                .header("Access-Control-Allow-Origin", "http://localhost:5173")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-                .header("Access-Control-Allow-Headers", "*")
-                .build();
-    }
+
+
 
 
 
@@ -102,27 +87,19 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }}
 
-    @RequestMapping(value = "book/category", method = RequestMethod.GET)
-    public Iterable<Category> allCategorys(){
 
-         List<Category> categoryList=  categoryRepository.findAll();
-
-        return categoryList;
+    @RequestMapping(value = "/delete/{idbooks}", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions() {
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Origin", "http://localhost:5173")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .header("Access-Control-Allow-Headers", "*")
+                .build();
     }
 
-    @RequestMapping(value="book/category/add",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addCategory(@RequestBody Category category){
 
-        categoryRepository.save(category);
 
-    }
 
-    @RequestMapping(value="book/category/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteCategory(@RequestBody Category idcategory){
-
-        categoryRepository.delete(idcategory);
-
-    }
 
 
 

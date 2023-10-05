@@ -1,5 +1,6 @@
 package com.meisterlampe.dockertestingarea2.services;
 
+import com.meisterlampe.dockertestingarea2.entities.Books;
 import com.meisterlampe.dockertestingarea2.entities.Category;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -108,4 +109,7 @@ public interface CategoryService extends JpaRepository<Category,Integer> {
 
     @Override
     <S extends Category, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+
+
+    Optional<Category> updateCategoriesByIdcategory(int idcategory, Category category);
 }
