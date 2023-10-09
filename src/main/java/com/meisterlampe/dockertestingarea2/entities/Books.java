@@ -1,6 +1,8 @@
 package com.meisterlampe.dockertestingarea2.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @Table(name= "books", schema = "bookstorefinal")
 public class Books {
 
@@ -29,6 +32,8 @@ public class Books {
     private String releaseDate;
     @Column(name = "bookentry")
     private String bookentry;
+    @Column(name="stock")
+    private int stock;
 
 
 
@@ -43,6 +48,7 @@ public class Books {
 
 
     @OneToMany(mappedBy = "ausgelieheneBucher")
+
     private List<Ausleihe> ausleihe;
 
 

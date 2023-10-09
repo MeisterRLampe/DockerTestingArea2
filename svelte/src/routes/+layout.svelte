@@ -43,11 +43,12 @@
 				</div>
 			</nav>
 			<aside>
-				<p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+				<p>René Martinek © Puschproduktions </p>
 			</aside>
 		</footer>
 	</footer>
 </div>
+©
 
 <style>
 	.app {
@@ -67,7 +68,10 @@
 		box-sizing: border-box;
 	}
 
+
+
 	footer {
+		background:#0Е1926;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

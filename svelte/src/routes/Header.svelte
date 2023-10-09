@@ -20,13 +20,13 @@
 </script>
 
 <header class="text-center">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">📕 Store Adventures</a>
+	<nav class="navbar navbar-expand-lg   rounded ">
+		<a class="navbar-brand" href="/">📕 Store Adventures</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse  " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -40,7 +40,7 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="http://localhost:5173/register">Register <span class="sr-only">(current)</span></a>
 				</li>
-				<!-- Weitere Nav-Elemente hier -->
+
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -52,13 +52,18 @@
 
 <style>
 	header {
+		background: #EDE6F2;
 		display: flex;
 		justify-content: space-between;
 		align-items: center; /* Vertically center the content */
 		padding: 1rem; /* Add some padding for spacing */
-		background-color: var(--background); /* Set the background color */
-		color: var(--color-text); /* Set the text color */
+
 		border-radius: 15px;
+	}
+
+	nav{
+		background: #EDE6F2;
+
 	}
 	ul {
 		margin:0;
@@ -67,12 +72,11 @@
 		text-align:center;
 	}
 
-
-
 	li {
 		margin-right: 1rem; /* Add spacing between navigation items */
 		display:inline-block;
 	}
+
 
 	a {
 		text-decoration: none;

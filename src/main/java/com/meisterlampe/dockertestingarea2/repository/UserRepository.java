@@ -22,6 +22,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Override
     Optional<User> findById(Integer integer);
 
+    boolean existsByUsername(String username);
+
+    Optional<User> findByUsernameAndPassword(String username, String password);
+
     @Transactional
     @Modifying
     @Query("""

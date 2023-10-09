@@ -2,8 +2,7 @@
 
     import {onMount} from "svelte";
 
-         let isOpen = false;
-        let selectedCategory = null;
+
         let data ={
             categories: [],
         }
@@ -14,6 +13,7 @@
         let releaseDate = '';
         let bookEntry = '';
         let categoryname = '';
+        let idcategory = '';
 
 
 
@@ -32,40 +32,14 @@
         onMount(fetchCategories)
 
 
-    function selectCategory(category) {
-        selectedCategory = category;
-        isOpen = false;
-    }
+
 
         fetchCategories();
 
-             async function saveCategory() {
-                 if (selectedCategory) {
-                     try {
-                         const response = await fetch('http://localhost:8080/api/book/create', {
-                             method: 'POST',
-                             headers: {
-                                 'Content-Type': 'application/json'
-                             },
-                             body: JSON.stringify({
-                                 id: selectedCategory,
-                                 name: categoryname
 
-                             })
-                         });
 
-                         if (response.ok) {
-                             console.log('Kategorie wurde erfolgreich gespeichert.');
-                         } else {
-                             console.error('Fehler beim Speichern der Kategorie.');
-                         }
-                     } catch (error) {
-                         console.error('Fehler beim Speichern der Kategorie:', error);
-                     }
-                 } else {
-                     console.error('Es wurde keine Kategorie ausgewählt.');
-                 }
-            }
+
+
         async function handler() {
             const formData = {
                 booktitle,
@@ -74,11 +48,10 @@
                 releaseDate,
                 bookEntry,
                 categoryname,
-                idcategory :selectedCategory
+                idcategory
 
             };
 
-            saveCategory();
 
             const response = await fetch('http://localhost:8080/api/book/create', {
                 method: 'POST',
@@ -129,7 +102,7 @@
 
                 <label for="category">Kategorie:</label>
                 <div class="form-group form-check-input btn mt-3 ml-1.5 w-15" >
-                    <select id="category" bind:value={selectedCategory} class="form-select">
+                    <select id="category" bind:value={categoryname} class="form-select">
                         <option value="">Kategorie</option>
                         {#each data.categories as category}
                             <option value={category.idcategory}>{category.categoryname}</option>

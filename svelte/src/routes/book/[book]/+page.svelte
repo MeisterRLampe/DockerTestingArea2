@@ -2,4 +2,4 @@
     export let data;
 </script>
 
-   <p>{data.item}</p>
+   <p>{data.iterate}</p>
