@@ -11,7 +11,7 @@
     let pages = '';
     let price = '';
     let releaseDate = '';
-    let bookEntry = '';
+    let bookentry = '';
     let selectedCategoryId = '';
     let stock='';
 
@@ -37,7 +37,7 @@
             pages,
             price,
             releaseDate,
-            bookEntry,
+            bookentry,
             idcategory: selectedCategoryId,
             stock,
 
@@ -92,14 +92,25 @@
                 </div>
 
                 <label for="category">Kategorie:</label>
-                <div class="w-25">
-                    <select id="category" name="category" bind:value={selectedCategoryId} class="form-select">
+
+                <div class="container row inline-block">
+                <div class=" w-25 col">
+                    <select id="category" placeholder="Kategorie" name="category" bind:value={selectedCategoryId} class="form-select">
                         <option>Wähle Kategorie</option>
                         {#each data.categories as category}
                             <option value={category.idcategory}>{category.categoryname}</option>
                         {/each}
                     </select>
                 </div>
+                    <div class="input-group upload">
+                        <div class="  input-group-prepend col"></div>
+                        <div class="custom-file w-10 -mt-5 mb-3 ">
+                            <input bind:value={bookentry}  type="file" class="custom-file-input" id="inputGroupFile01"
+                                   aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">PDF Upload</label>
+                        </div>
+                    </div>
+              </div>
 
                 <div class="container d-flex justify-content-end ">
                     <div class="row align-items-center ">
@@ -117,7 +128,11 @@
     </form>
 </main>
 <style>
+      .upload{
+          width:50%;
+          margin-left: 450px;
 
+      }
 
 </style>
 
