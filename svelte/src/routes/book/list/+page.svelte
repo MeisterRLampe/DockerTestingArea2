@@ -7,17 +7,17 @@
     let booktitle = '';
     let pages = '';
     let price = "";
-    let category = "";
+    let idcategory = "";
 
 
-    const handleDeleteById = async () => {
+   /* const handleDeleteById = async () => {
         const idData = {
 
             idbooks,
             booktitle,
             pages,
             price,
-            category,
+            idcategory,
 
         };
         const response = await fetch(`http://localhost:8080/api/book/delete/${idData.idbooks}`, {
@@ -34,7 +34,7 @@
             // Fehler beim Erstellen
             console.error('Fehler beim löschen');
         }
-    }
+    }*/
 
 
 </script>
@@ -90,14 +90,14 @@
         </table>
     </div>
 
-    <div class="centered">
+    <!--<div class="centered">
         <form on:submit={handleDeleteById}>
             <input placeholder="Delete By Id" class="rounded mt-4" type="text" width="250px" height="10px">
             <div class="mt-4">
                 <button type="submit" class="btn btn-success sm:badge-ghost">Delete</button>
             </div>
         </form>
-    </div>
+    </div>-->
 </main>
 
 <style lang="postcss">

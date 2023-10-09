@@ -1,6 +1,9 @@
 package com.meisterlampe.dockertestingarea2.controller;
+import com.meisterlampe.dockertestingarea2.DTO.BookDTO;
 import com.meisterlampe.dockertestingarea2.entities.Books;
+import com.meisterlampe.dockertestingarea2.entities.Category;
 import com.meisterlampe.dockertestingarea2.repository.BookRepository;
+import com.meisterlampe.dockertestingarea2.repository.CategoryRepository;
 import com.meisterlampe.dockertestingarea2.services.BookService;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
@@ -21,7 +24,8 @@ public class BookController {
     private final BookService bookService;
     @Resource
     private final BookRepository bookRepository;
-
+    @Resource
+    private final CategoryRepository categoryRepository;
 
 
 
@@ -39,7 +43,23 @@ public class BookController {
 
     //Create a Book
     @RequestMapping(value="/book/create", method= RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createBook(@RequestBody Books book){
+    public void createBook(@RequestBody BookDTO bookDTO){
+
+        Books book = new Books();
+
+        book.setBooktitle(bookDTO.getBooktitle());
+        book.setPrice(bookDTO.getPrice());
+        book.setPages(bookDTO.getPages());
+        book.setBookentry(bookDTO.getBookentry());
+        book.setStock(bookDTO.getStock());
+        book.setReleaseDate(bookDTO.getReleaseDate());
+
+        Category category = categoryRepository.findById(bookDTO.getIdcategory()).orElse(null);
+
+        if(category!=null){
+
+            book.setCategory(category);
+        }
 
         bookRepository.save(book);
     }

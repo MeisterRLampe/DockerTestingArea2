@@ -3,80 +3,72 @@
     import {onMount} from "svelte";
 
 
-        let data ={
-            categories: [],
-        }
+    let data = {
+        categories: [],
+    }
 
-        let booktitle = '';
-        let pages = '';
-        let price = '';
-        let releaseDate = '';
-        let bookEntry = '';
-        let categoryname = '';
-        let idcategory = '';
-
-
-
-        async function fetchCategories() {
-            try {
-                const response = await fetch('http://localhost:8080/api/category/all');
-                if (response.ok) {
-                    data.categories = await response.json();
-                } else {
-                    console.error("Fehler beim Abrufen der Kategorien")
-                }
-            } catch (error) {
-                console.error("Fehler beim Abrufen der Kategorien", error)
-            }
-        }
-        onMount(fetchCategories)
+    let booktitle = '';
+    let pages = '';
+    let price = '';
+    let releaseDate = '';
+    let bookEntry = '';
+    let selectedCategoryId = '';
+    let stock='';
 
 
-
-
-        fetchCategories();
-
-
-
-
-
-        async function handler() {
-            const formData = {
-                booktitle,
-                pages,
-                price,
-                releaseDate,
-                bookEntry,
-                categoryname,
-                idcategory
-
-            };
-
-
-            const response = await fetch('http://localhost:8080/api/book/create', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+    async function fetchCategories() {
+        try {
+            const response = await fetch('http://localhost:8080/api/category/all');
             if (response.ok) {
-                console.log('Buch wurde erstellt');
+                data.categories = await response.json();
             } else {
-                console.error('Fehler beim Erstellen');
+                console.error("Fehler beim Abrufen der Kategorien")
             }
+        } catch (error) {
+            console.error("Fehler beim Abrufen der Kategorien", error)
         }
+    }
+
+    fetchCategories();
+
+    async function handler() {
+        const formData = {
+            booktitle,
+            pages,
+            price,
+            releaseDate,
+            bookEntry,
+            idcategory: selectedCategoryId,
+            stock,
+
+        };
+
+
+        const response = await fetch('http://localhost:8080/api/book/create', {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            console.log('Buch wurde erstellt');
+        } else {
+            console.error('Fehler beim Erstellen');
+        }
+    }
 
 </script>
 
 
 <main>
-    <form  on:submit={handler}>
+    <form on:submit={handler}>
         <div class="flex">
             <div class="container text-black -mb-20 flex-col flex-1 w-full">
                 <label>Title:</label>
                 <div>
-                    <input bind:value={booktitle} type="text" id="booktitle" class="input input-bordered w-full max-w-xs bg-blue-200"/>
+                    <input bind:value={booktitle} type="text" id="booktitle"
+                           class="input input-bordered w-full max-w-xs bg-blue-200"/>
                 </div>
                 <label>Pages:</label>
                 <div>
@@ -94,38 +86,33 @@
                            class="input input-bordered w-full max-w-xs bg-blue-200"/>
                 </div>
 
-             <!--   <div>
-                    <input bind:value={categoryname} name="categoryname" type="button"
-                           class=" dropdown input input-bordered w-full max-w-xs bg-blue-200" />
-
-                </div>-->
+                <label for="stock">Exemplare:</label>
+                <div>
+                    <input bind:value={stock} class="input input-bordered w-full max-w-xs bg-blue-200"/>
+                </div>
 
                 <label for="category">Kategorie:</label>
-                <div class="form-group form-check-input btn mt-3 ml-1.5 w-15" >
-                    <select id="category" bind:value={categoryname} class="form-select">
-                        <option value="">Kategorie</option>
+                <div class="w-25">
+                    <select id="category" name="category" bind:value={selectedCategoryId} class="form-select">
+                        <option>Wähle Kategorie</option>
                         {#each data.categories as category}
                             <option value={category.idcategory}>{category.categoryname}</option>
                         {/each}
                     </select>
                 </div>
 
-
-
-
-
-        <div class="container d-flex justify-content-end ">
-            <div class="row align-items-center ">
-            <div class="col">
-                <button class="btn btn-success" type="submit">Create a Book</button>
+                <div class="container d-flex justify-content-end ">
+                    <div class="row align-items-center ">
+                        <div class="col">
+                            <button class="btn btn-success" type="submit">Create a Book</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-error" type="reset">Reset</button>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-error" type="reset">Reset</button>
-            </div>
-                <div></div>
-            </div>
-        </div>
-        </div>
         </div>
     </form>
 </main>
@@ -134,10 +121,9 @@
 
 </style>
 
-            <!--<div>
-                <input bind:value={bookEntry} type="file" class="file-input file-input-bordered w-full max-w-xs"/>
-            </div>-->
-
+<!--<div>
+    <input bind:value={bookEntry} type="file" class="file-input file-input-bordered w-full max-w-xs"/>
+</div>-->
 
 
 <!--<div class="form-group form-check-input btn mt-3 ml-1.5 w-15" >

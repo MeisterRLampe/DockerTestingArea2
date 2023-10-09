@@ -1,6 +1,6 @@
 package com.meisterlampe.dockertestingarea2.serviceImpl;
+import com.meisterlampe.dockertestingarea2.DTO.BookDTO;
 import com.meisterlampe.dockertestingarea2.entities.Books;
-import com.meisterlampe.dockertestingarea2.entities.Category;
 import com.meisterlampe.dockertestingarea2.repository.BookRepository;
 import com.meisterlampe.dockertestingarea2.repository.CategoryRepository;
 import com.meisterlampe.dockertestingarea2.services.BookService;
@@ -72,8 +72,9 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+
     @Override
-    public void createBook(Books bookDTO) {
+    public void createBook(BookDTO bookDTO) {
 
     }
 

@@ -1,5 +1,6 @@
 package com.meisterlampe.dockertestingarea2.services;
 
+import com.meisterlampe.dockertestingarea2.DTO.BookDTO;
 import com.meisterlampe.dockertestingarea2.entities.Books;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public interface BookService {
 
     Optional<Books> updateBookById(int idbooks, Books book);
 
-    void createBook(Books bookDTO);
 
+    void createBook(BookDTO bookDTO);
 }

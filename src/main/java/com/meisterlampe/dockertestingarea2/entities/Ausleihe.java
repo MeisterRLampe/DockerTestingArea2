@@ -1,7 +1,4 @@
 package com.meisterlampe.dockertestingarea2.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "book_order", schema = "bookstorefinal")
+@Table(name = "ausleihe", schema = "bookstorefinal")
 public class Ausleihe {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -42,7 +42,7 @@ public class Books {
     @Column(name = "idcategory", insertable = false, updatable = false)
     private Integer idcategory;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="idcategory")
     private Category category;
 
