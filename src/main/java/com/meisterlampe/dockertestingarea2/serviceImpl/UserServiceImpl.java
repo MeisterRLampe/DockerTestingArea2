@@ -4,6 +4,9 @@ import com.meisterlampe.dockertestingarea2.entities.User;
 import com.meisterlampe.dockertestingarea2.repository.UserRepository;
 import com.meisterlampe.dockertestingarea2.services.UserService;
 import jakarta.annotation.Resource;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +17,22 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     List<User> customerList;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+
+    public UserDetailsService userDetailsService(){
+            return new UserDetailsService() {
+                @Override
+                public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                    return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
+                }
+            };
     }
 
 

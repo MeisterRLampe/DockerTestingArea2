@@ -1,5 +1,6 @@
 package com.meisterlampe.dockertestingarea2.repository;
 
+import com.meisterlampe.dockertestingarea2.entities.Role;
 import com.meisterlampe.dockertestingarea2.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
+
+
+    User findByRole(Role role);
+
+    Optional<User> findByEmail(String email);
 
     @Override
     List<User> findAllById(Iterable<Integer> integers);
