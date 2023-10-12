@@ -6,6 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: bookstoreFinalDB
+      TZ: Europe/Berlin
     ports:
       - "3308:3306"
     volumes:

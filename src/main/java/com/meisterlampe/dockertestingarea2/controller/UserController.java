@@ -4,6 +4,7 @@ import com.meisterlampe.dockertestingarea2.repository.UserRepository;
 import com.meisterlampe.dockertestingarea2.services.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -17,6 +18,12 @@ public class UserController {
     @Resource
     private final UserService userService;
 
+
+    @GetMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> sayHello(){
+
+        return ResponseEntity.ok("Hi User");
+    }
 
     public UserController(UserRepository userRepository, UserService userService
     ) {
