@@ -3,31 +3,30 @@
 
 :root {
 
-	--background: #b9dff1;
+	--background: #6C999D;
 	--background-dark: #111111;
-	--color-text: #333333;
-	--text-dark: #ffffff;
+	--color-text: #0Е1926;
+	--text-dark: #EDE6F2;
 
 }
 
-/* Define styles for light mode */
-.light-mode {
-	--background: var(--background);
-	--color-text: var(--color-text);
+body{
+	background: #6C999D
 }
 
-/* Define styles for dark mode */
-.dark-mode {
-	--background: var(--background-dark);
-	--color-text: var(--text-dark);
+
+nav{
+	background: #EDE6F2 ;
 }
 
-body:not(.dark-mode) {
-	background-color: var(--background);
-	color: var(--color-text);
+header{
+	background: #EDE6F2;
+}
+li:hover{
+	font-size: 20px;
+	background-color: #777777;
+	color: whitesmoke;
+	border-radius: 15px;
 }
 
-body.dark-mode {
-	background-color: var(--background-dark);
-	color: var(--text-dark);
-}
+

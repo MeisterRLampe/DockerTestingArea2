@@ -1,17 +1,17 @@
 package com.meisterlampe.dockertestingarea2.entities;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "book_order", schema = "bookstorefinal")
+@Table(name = "ausleihe", schema = "bookstorefinal")
 public class Ausleihe {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +19,18 @@ public class Ausleihe {
     @Column(name = "idbookorder")
     private int idbookorder;
 
-    @Column(name = "created_date")
-    private Timestamp createdDate;
+    @Column(name = "ausleihedatum")
+    private Timestamp ausleihedatum;
 
-    @Column(name = "last_modified")
-    private Timestamp lastModified;
+    @Column(name = "rueckgabe")
+    private Timestamp rueckgabe;
 
-    @Column(name="rentTime")
-    private Timestamp rentTime;
+    @Column(name="ausleihe")
+    private Timestamp ausleihe;
 
-    @Column(name="rent")
-    private int rent;
+    @ManyToOne
+    @JoinColumn(name= "stock")
+    private Books stock;
 
     @ManyToOne
     @JoinColumn(name = "iduser")
@@ -40,54 +41,16 @@ public class Ausleihe {
     private Books ausgelieheneBucher;
 
 
-
-
-    public int getIdbookorder() {
-        return idbookorder;
-    }
-
-    public void setIdbookorder(int idbookorder) {
-        this.idbookorder = idbookorder;
-    }
-
-
-    public Timestamp getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Timestamp createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Timestamp getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(Timestamp lastModified) {
-        this.lastModified = lastModified;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Ausleihe ausleihe = (Ausleihe) o;
-
-        if (idbookorder != ausleihe.idbookorder) return false;
-        if (createdDate != null ? !createdDate.equals(ausleihe.createdDate) : ausleihe.createdDate != null)
-            return false;
-        if (lastModified != null ? !lastModified.equals(ausleihe.lastModified) : ausleihe.lastModified != null)
-            return false;
-
-        return true;
+        Ausleihe ausleihe1 = (Ausleihe) o;
+        return idbookorder == ausleihe1.idbookorder && Objects.equals(ausleihedatum, ausleihe1.ausleihedatum) && Objects.equals(rueckgabe, ausleihe1.rueckgabe) && Objects.equals(ausleihe, ausleihe1.ausleihe) && Objects.equals(stock, ausleihe1.stock) && Objects.equals(user, ausleihe1.user) && Objects.equals(ausgelieheneBucher, ausleihe1.ausgelieheneBucher);
     }
 
     @Override
     public int hashCode() {
-        int result = idbookorder;
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
-        return result;
+        return Objects.hash(idbookorder, ausleihedatum, rueckgabe, ausleihe, stock, user, ausgelieheneBucher);
     }
 }

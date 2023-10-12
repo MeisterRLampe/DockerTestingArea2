@@ -1,13 +1,19 @@
 <svelte:head>
-    <title>Customer</title>
+    <title>Benutzer</title>
     <meta name="description" content="About this app"/>
 </svelte:head>
+
+<script>
+
+</script>
+
+
 
     <div class="container grid grid-cols-2">
 
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="http://localhost:5173/create/book">
-                <img class="rounded-t-lg" src="" alt=""/>
+                <img class="rounded-t-lg w-25" src=""  alt=""/>
             </a>
             <div class="p-5">
                 <a href="http://localhost:5173/create/book">
@@ -27,7 +33,7 @@
 
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="http://localhost:5173/book/list">
-                    <img class="rounded-t-lg" src=""  alt=""/>
+                    <img class="rounded-t-lg"   alt="" src=""/>
                 </a>
                 <div class="p-5">
                     <a href="http://localhost:5173/book/list">

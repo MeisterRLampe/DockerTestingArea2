@@ -1,9 +1,9 @@
-export const prerender = true;
+export const prerender = false;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-    const res = await fetch(`http://localhost:8080/api/category`);
-    const item = await res.json();
+    const res = await fetch(`http://localhost:8080/api/allbooks`);
+    const item = await res.text();
 
 
     return { item };
