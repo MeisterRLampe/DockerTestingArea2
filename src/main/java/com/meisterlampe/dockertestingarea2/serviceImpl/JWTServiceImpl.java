@@ -26,7 +26,8 @@ public class JWTServiceImpl implements JWTService {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() +1000*60*24);
 
-        String token = Jwts.builder().setSubject(userDetails.getUsername())
+        String token = Jwts.builder()
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(expirationDate)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)

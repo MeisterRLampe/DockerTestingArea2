@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class SignInRequest {
 
-    private String email;
+    private String loginId;
     private String password;
 }

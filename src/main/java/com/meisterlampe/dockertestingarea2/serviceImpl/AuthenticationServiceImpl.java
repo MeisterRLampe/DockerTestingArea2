@@ -30,6 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         User user = new User();
 
+        user.setUsername(signUpRequest.getLoginId());
         user.setEmail(signUpRequest.getEmail());
         user.setFirstname(signUpRequest.getFirstname());
         user.setLastname(signUpRequest.getLastname());
@@ -40,10 +41,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public JwtAuthenticationResponse signin(SignInRequest signInRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(),
                 signInRequest.getPassword()));
 
-        var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password!"));
+        var user = userRepository.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
@@ -56,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
         String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByEmail(userEmail).orElseThrow();
+        User user = userRepository.findByUsername(userEmail).orElseThrow();
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)){
             var jwt = jwtService.generateToken(user);
 

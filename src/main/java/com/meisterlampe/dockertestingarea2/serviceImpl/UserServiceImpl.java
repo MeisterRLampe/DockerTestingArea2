@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private final UserRepository userRepository;
 
-    List<User> customerList;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
             return new UserDetailsService() {
                 @Override
                 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                    return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
+                    return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
                 }
             };
     }

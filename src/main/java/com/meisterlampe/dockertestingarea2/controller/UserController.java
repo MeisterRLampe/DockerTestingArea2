@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
 
-    @GetMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/user")
     public ResponseEntity<String> sayHello(){
 
         return ResponseEntity.ok("Hi User");
