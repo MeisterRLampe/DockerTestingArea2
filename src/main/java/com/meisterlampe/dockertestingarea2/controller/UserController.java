@@ -45,9 +45,7 @@ public class UserController {
     @GetMapping("/customer/{iduser}")
     public Object getCustomerById(@PathVariable int iduser) {
 
-        Optional<User> customerDTO = userRepository.findById(iduser);
-
-        return customerDTO;
+        return userRepository.findById(iduser);
     }
 
 
@@ -65,12 +63,7 @@ public class UserController {
 
         Optional<User> updatedCustomer = userService.updateCustomerById(idcustomer, customerUpdates);
 
-        if(updatedCustomer.isPresent()){
-            return Optional.of(updatedCustomer.get());
-        }
-        else{
-            return Optional.empty();
-        }
+        return updatedCustomer.isPresent() ?  Optional.of(updatedCustomer.get()):  Optional.empty();
 
     }
 
