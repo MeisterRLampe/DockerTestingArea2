@@ -23,13 +23,28 @@ public class UserServiceImpl implements UserService {
     }
 
 
+
     public UserDetailsService userDetailsService(){
             return new UserDetailsService() {
                 @Override
-                public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                    return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
+                public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+                    User user;
+
+                    if(isEmail(usernameOrEmail)){
+                        user = userRepository.findByEmail(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("Email-Adresse nicht gefunden!" +usernameOrEmail));
+                    }
+                    else{
+                        user = userRepository.findByUsername(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("Username nicht gefunden!"+usernameOrEmail));
+                    }
+
+                    return user;
                 }
             };
+    }
+
+    private boolean isEmail(String usernameOrEmail){
+
+        return usernameOrEmail.contains("@");
     }
 
 
@@ -97,3 +112,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 }
+
+
+
+/*public Optional<User> findUsersByEmailOrUsername(String email, String username) {
+
+        Optional<User> findUser = userRepository.findByUsername(username);
+        Optional<User> findEmail = userRepository.findByEmail(email);
+
+        if (findUser.isPresent() && findEmail.isPresent() && findUser.get().getEmail().equals(email)) {
+            return findUser;
+        }
+
+        else if (findEmail.isPresent()){
+
+            return findEmail;
+        }
+
+        return Optional.empty();
+    }*/

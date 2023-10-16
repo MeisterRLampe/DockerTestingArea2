@@ -44,6 +44,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(),
                 signInRequest.getPassword()));
 
+
         var user = userRepository.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
