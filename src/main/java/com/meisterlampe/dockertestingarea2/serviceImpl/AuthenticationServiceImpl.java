@@ -41,19 +41,37 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public JwtAuthenticationResponse signin(SignInRequest signInRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(),
-                signInRequest.getPassword()));
 
+        if (signInRequest.getLoginId() != null) {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(),
+                    signInRequest.getPassword()));
 
-        var user = userRepository.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
-        var jwt = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+            var user = userRepository.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
+            var jwt = jwtService.generateToken(user);
+            var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
             JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
 
             jwtAuthenticationResponse.setToken(jwt);
             jwtAuthenticationResponse.setRefreshToken(refreshToken);
             return jwtAuthenticationResponse;
+
+
+        } else if (signInRequest.getEmail() != null) {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
+
+            var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
+            var jwt = jwtService.generateToken(user);
+            var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+
+            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+
+            jwtAuthenticationResponse.setToken(jwt);
+            jwtAuthenticationResponse.setRefreshToken(refreshToken);
+            return jwtAuthenticationResponse;
+        }
+
+        return null;
 
     }
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
