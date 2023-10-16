@@ -1,5 +1,4 @@
 package com.meisterlampe.dockertestingarea2.serviceImpl;
-
 import com.meisterlampe.dockertestingarea2.DTO.JwtAuthenticationResponse;
 import com.meisterlampe.dockertestingarea2.DTO.RefreshTokenRequest;
 import com.meisterlampe.dockertestingarea2.DTO.SignInRequest;
@@ -12,6 +11,7 @@ import com.meisterlampe.dockertestingarea2.services.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +25,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
+    private final UserServiceImpl userService;
 
-    public User signup(SignUpRequest signUpRequest){
+    public User signup(SignUpRequest signUpRequest) {
 
         User user = new User();
 
@@ -40,53 +41,52 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.save(user);
     }
 
-    public JwtAuthenticationResponse signin(SignInRequest signInRequest){
+    public JwtAuthenticationResponse signin(SignInRequest signInRequest) {
+        if (signInRequest.getLoginId() != null || signInRequest.getEmail() != null) {
+            Authentication authentication;
 
-        if (signInRequest.getLoginId() != null) {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(),
-                    signInRequest.getPassword()));
+            if (signInRequest.getLoginId() != null) {
+                authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(), signInRequest.getPassword()));
+            } else {
+                authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
+            }
 
-            var user = userRepository.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
-            var jwt = jwtService.generateToken(user);
-            var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+            if (authentication != null) {
+                User user;
 
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+                if (signInRequest.getLoginId() != null) {
+                    user = userService.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Ungültiger Benutzer oder Passwort!"));
+                } else {
+                    user = userService.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Ungültiger Benutzer oder Passwort!"));
+                }
 
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshToken);
-            return jwtAuthenticationResponse;
+                String jwt = jwtService.generateToken(user);
+                String refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
-
-        } else if (signInRequest.getEmail() != null) {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
-
-            var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid user or password!"));
-            var jwt = jwtService.generateToken(user);
-            var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
-
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshToken);
-            return jwtAuthenticationResponse;
+                JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+                jwtAuthenticationResponse.setToken(jwt);
+                jwtAuthenticationResponse.setRefreshToken(refreshToken);
+                return jwtAuthenticationResponse;
+            }
         }
 
         return null;
-
     }
-    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
-        String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(userEmail).orElseThrow();
-        if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)){
-            var jwt = jwtService.generateToken(user);
 
-            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+    public JwtAuthenticationResponse refreshToken (RefreshTokenRequest refreshTokenRequest){
+            String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
+            User user = userRepository.findByUsername(userEmail).orElseThrow();
+            if (jwtService.isTokenValid(refreshTokenRequest.getToken(), user)) {
+                var jwt = jwtService.generateToken(user);
 
-            jwtAuthenticationResponse.setToken(jwt);
-            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
-            return jwtAuthenticationResponse;
+                JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+
+                jwtAuthenticationResponse.setToken(jwt);
+                jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
+                return jwtAuthenticationResponse;
+            }
+            return null;
         }
-        return null;
+
     }
 
-}

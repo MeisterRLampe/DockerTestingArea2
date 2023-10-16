@@ -14,7 +14,6 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
 
-    Optional<User> findUsersByEmailOrUsername(String username, String email);
 
     User findByRole(Role role);
 
@@ -29,10 +28,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Override
     Optional<User> findById(Integer integer);
 
-    boolean existsByUsername(String username);
-
     Optional<User> findByUsername(String username);
-    Optional<User> findByUsernameAndPassword(String username, String password);
 
     @Transactional
     @Modifying
@@ -40,6 +36,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             update User u set u.iduser = ?1
             where u.username = ?2 and u.firstname = ?3 and u.lastname = ?4 and u.address = ?5 and u.zipcode = ?6 and u.email = ?7 and u.country = ?8 and u.dob = ?9 and u.createdAt = ?10 and u.password = ?11""")
     int UpdateCustomerById(int iduser, String username, String firstname, String lastname, String address, String zipcode, String email, String country, Date dob, Timestamp createdAt, String password);
+
+
 
 
 

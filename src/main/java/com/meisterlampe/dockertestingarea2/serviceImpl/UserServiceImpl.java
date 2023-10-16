@@ -1,5 +1,4 @@
 package com.meisterlampe.dockertestingarea2.serviceImpl;
-
 import com.meisterlampe.dockertestingarea2.entities.User;
 import com.meisterlampe.dockertestingarea2.repository.UserRepository;
 import com.meisterlampe.dockertestingarea2.services.UserService;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+
 
 
 @Service
@@ -26,11 +26,43 @@ public class UserServiceImpl implements UserService {
     public UserDetailsService userDetailsService(){
             return new UserDetailsService() {
                 @Override
-                public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
+                public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+
+                    User user;
+                    if(usernameOrEmail.contains("@")){
+                        user =userRepository.findByEmail(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("Email nicht gefunden"));
                     }
+                    else {
+                        user= userRepository.findByUsername(usernameOrEmail).orElseThrow(() -> new UsernameNotFoundException("User nicht gefunden!"));
+                    }
+
+                return user;
+                }
             };
     }
+
+    public Optional<User> findByUsername(String username) {
+
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if(user.isPresent()) {
+            return user;
+        }
+        return Optional.empty();
+    }
+
+    public Optional<User> findByEmail(String email) {
+
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if(user.isPresent()){
+            return user;
+        }
+        return Optional.empty();
+
+
+    }
+
 
     @Override
     public Iterable<User> getAllCustomers() {
@@ -95,4 +127,5 @@ public class UserServiceImpl implements UserService {
 
         }
     }
+
 }

@@ -16,10 +16,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    @Transactional
-    @Modifying
-    @Query("update Category c set c.categoryname = ?1 where c.idcategory = ?2")
-    int updateCategorynameByIdcategory(String categoryname, int idcategory);
+
     @Override
     void flush();
 

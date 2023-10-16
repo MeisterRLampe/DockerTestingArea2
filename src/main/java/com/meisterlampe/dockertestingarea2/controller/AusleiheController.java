@@ -23,7 +23,6 @@ public class AusleiheController {
 
     AusleiheRepository ausleiheRepository;
     AusleiheService ausleiheService;
-    private final AusleiheServiceImpl ausleiheServiceImpl;
 
     @RequestMapping(value = "/ausleihe/create", method = RequestMethod.POST)
     public void createAusleihe(Ausleihe ausleihe) {
