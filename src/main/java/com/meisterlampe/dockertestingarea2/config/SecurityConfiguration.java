@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,14 +31,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request ->request.requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("api/allbooks").permitAll()
-                        .requestMatchers("api/").permitAll()
-                .requestMatchers("api/admin").hasAnyAuthority(Role.ADMIN.name())
-                .requestMatchers("api/user").hasAnyAuthority(Role.USER.name())
+                .authorizeHttpRequests(request ->request
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/allbooks").permitAll()
+                        .requestMatchers("/api/").permitAll()
+                        .requestMatchers("/api/category/all").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("api/admin").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("api/user").hasAnyAuthority(Role.USER.name())
                                 .anyRequest().authenticated())
 
+
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class
                 );
