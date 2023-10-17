@@ -1,6 +1,8 @@
 <script xmlns="http://www.w3.org/1999/html">
     export let data;
     import totoro from "../assets/totorofirepit.png"
+    import {token} from "../stores.js";
+
 
     // const handleId = async () => {
     //
@@ -20,27 +22,33 @@
     //     }
     // }
 
+
     let email = '';
     let password = '';
     let loginId = '';
 
      async function signIn() {
         const requestData = {
-            email:"",
-            loginId: "",
-            password: ""
+            email:email,
+            loginId: loginId,
+            password: password
         };
 
         const res = await fetch('http://localhost:8080/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
+
             },
+            credentials: 'include', // CORS-Zugriff ermöglichen
+            mode: 'cors',
 
             body: JSON.stringify(requestData)
         });
         if(res.ok){
             console.log("Einloggen erfolgreich!");
+            let json = await res.json();
+            token.set(json.token)
         }
         else{
             console.log("Einloggen nicht erfolgreich!")
@@ -65,7 +73,7 @@
             <div class="form-outline mb-4 w-50 ">
                 <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                     username</label>
-                <input  bind:value={email} type="text" id="text"
+                <input  bind:value={loginId} type="text" id="text"
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                        placeholder="username" required>
             </div>

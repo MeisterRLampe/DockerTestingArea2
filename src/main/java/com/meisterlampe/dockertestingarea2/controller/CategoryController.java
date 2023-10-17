@@ -16,7 +16,6 @@ import java.util.Optional;
 @Getter
 @Setter
 @AllArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
 
     @Resource

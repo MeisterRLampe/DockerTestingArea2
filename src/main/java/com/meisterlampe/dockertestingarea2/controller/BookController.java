@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
 public class BookController {
     @Resource

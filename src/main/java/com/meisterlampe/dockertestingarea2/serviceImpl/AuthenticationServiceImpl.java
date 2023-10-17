@@ -42,24 +42,33 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public JwtAuthenticationResponse signin(SignInRequest signInRequest) {
+        Authentication authentication;
+        User user = null;
         if (signInRequest.getLoginId() != null || signInRequest.getEmail() != null) {
-            Authentication authentication;
 
+
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(), signInRequest.getPassword()));
+
+            String usernameOrEmail = signInRequest.getLoginId();
+            user = userService.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).orElseThrow(() -> new IllegalArgumentException("Ungültiger Benutzer oder Passwort!"));
+
+
+            /*
             if (signInRequest.getLoginId() != null) {
                 authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getLoginId(), signInRequest.getPassword()));
             } else {
                 authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
             }
-
+*/
             if (authentication != null) {
-                User user;
-
+  //              User user;
+/*
                 if (signInRequest.getLoginId() != null) {
                     user = userService.findByUsername(signInRequest.getLoginId()).orElseThrow(() -> new IllegalArgumentException("Ungültiger Benutzer oder Passwort!"));
                 } else {
                     user = userService.findByEmail(signInRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Ungültiger Benutzer oder Passwort!"));
                 }
-
+*/
                 String jwt = jwtService.generateToken(user);
                 String refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
