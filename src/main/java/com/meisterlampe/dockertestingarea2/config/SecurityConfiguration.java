@@ -1,5 +1,4 @@
 package com.meisterlampe.dockertestingarea2.config;
-
 import com.meisterlampe.dockertestingarea2.entities.Role;
 import com.meisterlampe.dockertestingarea2.services.UserService;
 import lombok.AllArgsConstructor;
