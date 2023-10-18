@@ -1,8 +1,8 @@
 export const prerender = true;
 import {token} from "../../../stores.js";
 
-//let bearer = "";
-//token.subscribe((t) => bearer = t)
+
+
 
 
 /** @type {import('../../../../.svelte-kit/types/src/routes').PageLoad} */
