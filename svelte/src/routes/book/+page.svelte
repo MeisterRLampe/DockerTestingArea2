@@ -53,8 +53,5 @@
 </div>
 <style>
 
-    button{
-        border-radius: 15px;
-        width: fit-content;
-    }
+
 </style>

@@ -10,7 +10,7 @@ export async function load({ fetch, params }) {
     try {
         const res = await fetch(`/api/api/allbooks`,{
             headers: {
-                'Authorization': `Bearer ${bearer}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },

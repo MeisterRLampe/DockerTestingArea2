@@ -1,22 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
-	import {page} from "$app/stores";
 
-	let darkMode = false;
 
-	function toggleDarkMode() {
-		darkMode = !darkMode;
-		document.documentElement.classList.toggle('dark-mode', darkMode);
-		localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
-	}
-
-	onMount(() => {
-		const storedDarkMode = localStorage.getItem('darkMode');
-		if (storedDarkMode === 'true') {
-			darkMode = true;
-			document.documentElement.classList.add('dark-mode');
-		}
-	});
 </script>
 
 <header class="text-center">
