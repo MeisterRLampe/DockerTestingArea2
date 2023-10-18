@@ -1,4 +1,6 @@
 <script xmlns="http://www.w3.org/1999/html">
+    import {onMount} from "svelte";
+
     export let data;
     import totoro from "../assets/totorofirepit.png"
     import {token} from "../stores.js";
@@ -49,12 +51,21 @@
             console.log("Einloggen erfolgreich!");
             let json = await res.json();
             token.set(json.token)
+            localStorage.setItem('token', json.token);
         }
         else{
             console.log("Einloggen nicht erfolgreich!")
         }
 
     }
+
+    onMount(() => {
+        const storedToken = localStorage.getItem('token');
+        console.log(storedToken);
+        if (storedToken) {
+            token.set(storedToken);
+        }
+    });
 
 </script>
 
